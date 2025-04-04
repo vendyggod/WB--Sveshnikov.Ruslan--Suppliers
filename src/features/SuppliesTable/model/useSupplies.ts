@@ -9,7 +9,7 @@ export const useSupplies = (limit: number = 10) => {
 
   const { data, fetchNextPage, ...rest } = useInfiniteQuery({
     queryKey: ["supplies", limit], // Добавляем limit в ключ запроса
-    queryFn: ({ pageParam = 1 }) => getSupplies(pageParam, limit),
+    queryFn: ({ pageParam = 1 }) => getSupplies(pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       const nextPage = allPages.length + 1;

@@ -20,20 +20,22 @@ const filters = [
 ];
 
 export const SearchSupply: FC = () => {
-  const filter = useSelector((state: RootState) => state.ui.filters.filteredBy);
+  const filteredBy = useSelector(
+    (state: RootState) => state.ui.filters.filteredBy,
+  );
   const searchQuery = useSelector(
     (state: RootState) => state.ui.filters.searchQuery,
   );
   const dispatch = useDispatch();
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchQuery(e.target.value)); // дебаунс 500 Ms на запрос
+    dispatch(setSearchQuery(e.target.value));
   };
 
   return (
     <SearchContainer>
       <FilterSelect
-        value={filter}
+        value={filteredBy}
         onChange={(e) => {
           dispatch(setFilter(e.target.value));
         }}

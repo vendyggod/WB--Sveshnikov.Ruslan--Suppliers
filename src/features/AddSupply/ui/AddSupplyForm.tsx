@@ -22,12 +22,7 @@ import {
 } from "./consts.ts";
 
 export const AddSupplyForm: FC<IForm> = ({ onCloseModal }) => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<ISupply>({
+  const { register, handleSubmit, reset } = useForm<ISupply>({
     defaultValues: {
       date: new Date().toISOString().split("T")[0],
       city: "Москва",
@@ -36,7 +31,9 @@ export const AddSupplyForm: FC<IForm> = ({ onCloseModal }) => {
       warehouse: "Черная грязь",
       status: "В пути",
     },
+    shouldUnregister: true,
   });
+
   const { createNewSupply, isCreating } = useCreateSupply();
   const totalItems = useSelector(
     (state: RootState) => state.ui.pagination.totalItems,
@@ -68,7 +65,7 @@ export const AddSupplyForm: FC<IForm> = ({ onCloseModal }) => {
       <FormTitle>Новая поставка</FormTitle>
       <FormInfo>{`#${formedId}`}</FormInfo>
 
-      <FormRow label="Дата поставки" error={errors?.date?.message}>
+      <FormRow label="Дата поставки">
         <FormRowInput
           type="date"
           id="date"
@@ -77,7 +74,7 @@ export const AddSupplyForm: FC<IForm> = ({ onCloseModal }) => {
         />
       </FormRow>
 
-      <FormRow label="Город" error={errors?.city?.message}>
+      <FormRow label="Город">
         <FormRowSelect
           id="city"
           disabled={isCreating}
@@ -104,7 +101,7 @@ export const AddSupplyForm: FC<IForm> = ({ onCloseModal }) => {
         />
       </FormRow>
 
-      <FormRow label="Тип поставки" error={errors?.type?.message}>
+      <FormRow label="Тип поставки">
         <FormRowSelect
           id="type"
           disabled={isCreating}
@@ -118,7 +115,7 @@ export const AddSupplyForm: FC<IForm> = ({ onCloseModal }) => {
         </FormRowSelect>
       </FormRow>
 
-      <FormRow label="Склад" error={errors?.warehouse?.message}>
+      <FormRow label="Склад">
         <FormRowSelect
           id="warehouse"
           disabled={isCreating}
@@ -132,7 +129,7 @@ export const AddSupplyForm: FC<IForm> = ({ onCloseModal }) => {
         </FormRowSelect>
       </FormRow>
 
-      <FormRow label="Статус" error={errors?.status?.message}>
+      <FormRow label="Статус">
         <FormRowSelect
           id="status"
           disabled={isCreating}
@@ -147,10 +144,10 @@ export const AddSupplyForm: FC<IForm> = ({ onCloseModal }) => {
       </FormRow>
 
       <ButtonRow>
-        <FormButton variation="primary" disabled={isCreating}>
+        <FormButton $variation="primary" disabled={isCreating}>
           Создать
         </FormButton>
-        <FormButton type="reset" variation="secondary" onClick={onCloseModal}>
+        <FormButton type="reset" $variation="secondary" onClick={onCloseModal}>
           Отменить
         </FormButton>
       </ButtonRow>
